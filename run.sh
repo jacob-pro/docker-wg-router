@@ -5,14 +5,9 @@ if [ -z "$LAN_INTERFACE" ]
 then
       echo "LAN_INTERFACE not set" && exit 1
 fi
-if [ -z "$CONF_FILE" ]
-then
-      echo "CONF_FILE not set" && exit 1
-fi
 
 echo "Creating wg interface"
-ip link add dev wg0 type wireguard
-wg setconf wg0 "/etc/wg/${CONF_FILE}"
+wg-quick up wg0
 
 echo "Routing from $LAN_INTERFACE to tun0"
 iptables -t nat -A POSTROUTING -o wg0 -j MASQUERADE
