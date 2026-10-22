@@ -12,8 +12,9 @@ services:
         image: ghcr.io/jacob-pro/wg-router:latest
         cap_add:
             - NET_ADMIN                         # Required so that the container can run iptables rules
-        sysctls:
-            net.ipv4.conf.all.src_valid_mark: 1    
+        security_opt:
+            - systempaths=unconfined
+            - apparmor=unconfined            
         volumes:
             - config:/etc/wireguard:ro          # Put your wg0.conf file in here
         networks:
