@@ -6,6 +6,8 @@ then
       echo "LAN_INTERFACE not set" && exit 1
 fi
 
+resolvconf -u
+
 echo "Creating wg interface"
 wg-quick up wg0
 
