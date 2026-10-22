@@ -7,21 +7,19 @@ A docker image to provide a NAT router to a VLAN using an WireGuard tunnel as th
 ## Usage
 
 ```
-version: '3.7'
 services:
-    openvpn:
+    wgrouter:
         image: ghcr.io/jacob-pro/wg-router:latest
         cap_add:
             - NET_ADMIN                         # Required so that the container can run iptables rules
         volumes:
-            - config:/etc/wg:ro                 # Your OpenVPN config file, keys, etc.
+            - config:/etc/wireguard:ro          # Put your wg0.conf file in here
         networks:
             default:                            # Use default network for Internet to connect to OpenVPN server
             external_vlan:
                 ipv4_address: 192.168.1.254     # The IP address this container will use on the VLAN
         environment:
             - LAN_INTERFACE=eth1       # The adapter the `external_vlan` appears as to the container (eth0 will be taken by the default network)
-            - CONF_FILE=myconfig.conf  # Name of the wireguard config file to launch
             - FORWARD_PORTS=192.168.1.5:80:TCP 192.168.1.8:3389:TCP 192.168.1.3:25565:UDP   # Optional list in format IP:PORT:PROTO
         restart: unless-stopped
     dhcp:
