@@ -29,7 +29,9 @@ services:
         image: networkboot/dhcpd            # Optionally add a DHCP server to the network
         volumes:
             - ./dhcpd.conf:/data/dhcpd.conf:ro
-        network_mode: "service:wgrouter"
+        networks:
+            external_vlan:
+                ipv4_address: 192.168.1.253     # The IP address the DHCP server will use
         restart: unless-stopped
 networks:
     external_vlan:  # Note: If connected to a virtual network switch, then make sure MAC Address Spoofing is allowed   
