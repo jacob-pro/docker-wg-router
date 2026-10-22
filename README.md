@@ -26,7 +26,7 @@ services:
         image: networkboot/dhcpd            # Optionally add a DHCP server to the network
         volumes:
             - ./dhcpd.conf:/data/dhcpd.conf:ro
-        network_mode: "service:openvpn"
+        network_mode: "service:wgrouter"
         restart: unless-stopped
 networks:
     external_vlan:  # Note: If connected to a virtual network switch, then make sure MAC Address Spoofing is allowed   
