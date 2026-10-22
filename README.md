@@ -15,7 +15,7 @@ services:
         volumes:
             - config:/etc/wireguard:ro          # Put your wg0.conf file in here
         networks:
-            default:                            # Use default network for Internet to connect to OpenVPN server
+            default:                            # Use default network for Internet to connect to Wireguard server
             external_vlan:
                 ipv4_address: 192.168.1.254     # The IP address this container will use on the VLAN
         environment:
